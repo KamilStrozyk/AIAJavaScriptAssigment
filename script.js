@@ -24,11 +24,12 @@ function saveItem(id) {
 
     let newAuthorCell = row.insertCell(0)
     let newTitleCell = row.insertCell(1);
-    let editButtonCell = row.insertCell(2);
+    let newButtonsCell = row.insertCell(2);
 
     newAuthorCell.appendChild(document.createTextNode(authorValue));
     newTitleCell.appendChild(document.createTextNode(titleValue));
-    editButtonCell.appendChild(createElement('button', 'button', 'Edit', 'editItem(' + id + ')'));
+    newButtonsCell.appendChild(createElement('button', 'button', 'Edit', 'editItem(' + id + ')'));
+    newButtonsCell.appendChild(createElement('button', 'button', 'Remove', 'removeItem(' + id + ')'));
 }
 
 function editItem(id) {
