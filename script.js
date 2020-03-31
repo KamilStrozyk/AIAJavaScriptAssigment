@@ -13,6 +13,24 @@ function addItem() {
     buttonsCell.appendChild(createElement('button', 'button', 'Remove', 'deleteItem(' + itemsCount + ')'));
 }
 
+function saveItem(id) {
+    let row = document.getElementById('itemsContainer').rows[id];
+    let authorValue = row.cells[0].childNodes[0].value;
+    let titleValue = row.cells[1].childNodes[0].value;
+
+    for (let i = 0; i < 3; i++) {
+        row.deleteCell(0);
+    }
+
+    let newAuthorCell = row.insertCell(0)
+    let newTitleCell = row.insertCell(1);
+    let editButtonCell = row.insertCell(2);
+
+    newAuthorCell.appendChild(document.createTextNode(authorValue));
+    newTitleCell.appendChild(document.createTextNode(titleValue));
+    editButtonCell.appendChild(createElement('button', 'button', 'Edit', 'editItem(' + id + ')'));
+}
+
 function createElement(elementType, elementConcreteType, innerHTML, attribute) {
     let element = document.createElement(elementType);
     element.type = elementConcreteType;
