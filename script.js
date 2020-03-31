@@ -7,8 +7,8 @@ function addItem() {
     let titleCell = row.insertCell(1);
     let buttonsCell = row.insertCell(2);
 
-    authorCell.appendChild(createElement('input', 'text', null, null));
-    titleCell.appendChild(createElement('input', 'text', null, null));
+    authorCell.appendChild(createElement('input', 'text'));
+    titleCell.appendChild(createElement('input', 'text'));
     buttonsCell.appendChild(createElement('button', 'button', 'Save', 'saveItem(' + itemsCount + ')'));
     buttonsCell.appendChild(createElement('button', 'button', 'Remove', 'deleteItem(' + itemsCount + ')'));
 }
@@ -31,10 +31,29 @@ function saveItem(id) {
     editButtonCell.appendChild(createElement('button', 'button', 'Edit', 'editItem(' + id + ')'));
 }
 
-function createElement(elementType, elementConcreteType, innerHTML, attribute) {
+function editItem(id) {
+    let row = document.getElementById('itemsContainer').rows[id];
+    let authorValue = row.cells[0].childNodes[0].data;
+    let titleValue = row.cells[1].childNodes[0].data;
+    for (let i = 0; i < 3; i++) {
+        row.deleteCell(0);
+    }
+
+    let newAuthorCell = row.insertCell(0)
+    let newTitleCell = row.insertCell(1);
+    let newButtonsCell = row.insertCell(2);
+
+    newAuthorCell.appendChild(createElement('input', 'text', null, null, authorValue));
+    newTitleCell.appendChild(createElement('input', 'text', null, null, value = titleValue));
+    newButtonsCell.appendChild(createElement('button', 'button', 'Save', 'saveItem(' + id + ')'));
+    newButtonsCell.appendChild(createElement('button', 'button', 'Remove', 'deleteItem(' + id + ')'));
+}
+
+function createElement(elementType, elementConcreteType, innerHTML, attribute, value) {
     let element = document.createElement(elementType);
     element.type = elementConcreteType;
     if (innerHTML != null && innerHTML != undefined) element.innerHTML = innerHTML;
     if (attribute != null && attribute != undefined) element.setAttribute('onclick', attribute);
+    if (value != null && value != undefined) element.value = value;
     return element;
 }
