@@ -10,7 +10,7 @@ function addItem() {
     authorCell.appendChild(createElement('input', 'text'));
     titleCell.appendChild(createElement('input', 'text'));
     buttonsCell.appendChild(createElement('button', 'button', 'Save', 'saveItem(' + itemsCount + ')'));
-    buttonsCell.appendChild(createElement('button', 'button', 'Remove', 'deleteItem(' + itemsCount + ')'));
+    buttonsCell.appendChild(createElement('button', 'button', 'Remove', 'removeItem(' + itemsCount + ')'));
 }
 
 function saveItem(id) {
@@ -46,7 +46,17 @@ function editItem(id) {
     newAuthorCell.appendChild(createElement('input', 'text', null, null, authorValue));
     newTitleCell.appendChild(createElement('input', 'text', null, null, value = titleValue));
     newButtonsCell.appendChild(createElement('button', 'button', 'Save', 'saveItem(' + id + ')'));
-    newButtonsCell.appendChild(createElement('button', 'button', 'Remove', 'deleteItem(' + id + ')'));
+    newButtonsCell.appendChild(createElement('button', 'button', 'Remove', 'removeItem(' + id + ')'));
+}
+
+function removeItem(id) {
+    document.getElementById('itemsContainer').rows[id].remove();
+    for (let i = 0; i < document.getElementById('itemsContainer').rows.length; i++) {
+        let row = document.getElementById('itemsContainer').rows[i];
+        row.cells[2].innerHTML = row.cells[2].innerHTML.replace(/saveItem\D\d\D/, 'saveItem(' + i + ')');
+        row.cells[2].innerHTML = row.cells[2].innerHTML.replace(/removeItem\D\d\D/, 'removeItem(' + i + ')');
+        row.cells[2].innerHTML = row.cells[2].innerHTML.replace(/editItem\D\d\D/, 'editItem(' + i + ')');
+    }
 }
 
 function createElement(elementType, elementConcreteType, innerHTML, attribute, value) {
